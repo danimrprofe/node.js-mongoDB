@@ -14,3 +14,8 @@ El proyecto está extraído de https://www.w3schools.com/nodejs/nodejs_mongodb.a
 * Los datos se guardan en colecciones, que a su vez están formadas por documentos. Estos documentos tienen una estructura JSON
 * No se definen IDs para cada documento, sino que se autogeneran cuando se introduce un documento nuevo
 * Permite acceder a los datos utilizando librerías javascript.
+
+En cuanto a los documentos:
+
+* No todos los documentos tienen porqué tener los mismos campos, por lo que se pueden agregar documentos con campos nuevos en cualquier momento.
+* Los campos pueden estar anidados, por lo que un campo puede contener a su vez más de un campo.
