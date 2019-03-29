@@ -1,7 +1,7 @@
 # node.js-mongoDB
 En este proyecto instalamos:
 * Una base de datos NoSQL como mongoDB
-* El módulo Node.js mongodb para podernos conectar y hacer consultas a la BD utilizando javascript
+* El módulo Node.js mongodb para podernos conectar y hacer consultas a la BD utilizando javascript. Node.js nos va a permitir ejecutar JavaScript en el lado del servidor.
 
 El proyecto está extraído de https://www.w3schools.com/nodejs/nodejs_mongodb.asp
 
@@ -19,3 +19,12 @@ En cuanto a los documentos:
 
 * No todos los documentos tienen porqué tener los mismos campos, por lo que se pueden agregar documentos con campos nuevos en cualquier momento.
 * Los campos pueden estar anidados, por lo que un campo puede contener a su vez más de un campo.
+
+# Instalación MongoDB
+
+Se puede descargar un instalable para Windows, y se puede instalar o no como un servicio. En función de la decisión que tomemos deberemos agregar al path las rutas a los ejecutables de MongoDB que son, principalmente:
+* mongod: se trata del servicio, el engine de mongo, que gestionará la BD
+* mongo: shell de mongoDB que nos permitirá comunicarnos con la BD y realizar operaciones sobre ella
+
+# Instalación Node.js
+Asumiento que tenemos instalado Node y el gestor de paquetes NPM, instalaremos el módulo de Mongo en la carpeta en la que lo vamos a  utilizar
