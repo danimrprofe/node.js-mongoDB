@@ -16,7 +16,7 @@ var dt = require('./myfirstmodule');
 // Este módulo lo necesito para parsear las URL
 var url = require('url');
 
-var funcionesBD = require('./funciones_bd');
+var funcionesBD = require('./bd/funciones_bd');
 
 // Cuando alguien se conecte al puerto 8080, se ejecutará esta función
 // El parámetro req es la petición del cliente, se pasa como objeto
