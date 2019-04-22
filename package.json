@@ -2,9 +2,14 @@
   "name": "node.js-mongodb",
   "version": "1.0.0",
   "description": "Pruebas de web con NODEJS y conexion a MongoDB",
-  "main": "demo_HTTP.js",
+  "main": "server.js",
   "dependencies": {
-    "mongodb": "^3.2.2"
+    "connect": "^3.6.6",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.2",
+    "express3-handlebars": "^0.5.2",
+    "mongodb": "^3.2.2",
+    "morgan": "^1.9.1"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
