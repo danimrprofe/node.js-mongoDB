@@ -9,7 +9,7 @@ var exphbs = require('express-handlebars');
 var logger = require('morgan');
 var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
-var multer = require('multer');
+// var multer = require('multer');
 var errorHandler = require('errorhandler');
 
 // Definimos el módulo que vamos a crear y exportar
