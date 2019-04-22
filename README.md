@@ -1,5 +1,34 @@
 # node.js-mongoDB
-<<<<<<< HEAD
+
+
+## Funciones básicas de Node.js
+
+### Dirigido a eventos
+
+Prácticamente todo el código estará escrito de tal manera que:
+* Responde a un evento concreto
+* Dispara un evento
+
+### Ejecución asíncrona
+
+### Sistema de módulos
+
+El código se agrupa en módulos para hacerlo lo más reutilizable posible. Node utiliza un sistema de módulos que
+nos permite organizar mejor nuestro código. Básicamente:
+
+* Escribimos un código que realiza una tarea en particular
+* Exportamos el código como un módulo que sirve para un propósito determinado.
+
+De este modo, cuando queramos reutilizar el código en cualquier otro lugar del proyecto, únicamente debemos
+requerir (importar) dicho módulo.
+
+Utilizando este sistema:
+
+* Podemos reutilizar una funcionalidad de un modo en cualquier archivo
+* Los archivos de un módulo actúan como un espacio de nombres privado
+
+## Creación del proyecto
+
 En primer lugar he inicializado NPM en la carpeta en la que tengo el trabajo:
 
                 npm init
