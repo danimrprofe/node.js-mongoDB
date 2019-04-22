@@ -11,7 +11,7 @@ var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
 var methodOverride = require('method-override');
 var errorHandler = require('errorhandler');
-// var multer = require('multer');
+var multer = require('multer');
 var moment = require('moment');
 
 // Definimos el módulo que vamos a crear y exportar
@@ -26,14 +26,16 @@ module.exports = function (app) {
   // app.use(connect.logger('dev')); // Logea cada petición HTTP recibida
   // Ahora hay que logear utilizando un módulo llamado Morgan, tócatelos
   app.use(morgan('dev'));
-  app.use(bodyParser({
-    uploadDir: path.join(__dirname, '../public/upload/temp')
-  }));
+  app.use(multer({ dest: path.join(__dirname, 'public/upload/temp') }).any());
   app.use(methodOverride());
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded());
   app.use(cookieParser('some-secret-value-here'));
   routes(app);
+
+  // Para poder postear imagenes, necesitamos aceptar form submissions
+  // del tipo multipart
+
   // app.use(multer());
 
   app.use('/public/', express.static(path.join(__dirname, '../public')));
