@@ -1,3 +1,4 @@
+var sidebar = require('../helpers/sidebar');
 module.exports = {
   index: function (req, res) {
     // En lugar de hacer un res.send, haremos un rend.render
@@ -39,7 +40,8 @@ module.exports = {
         }
       ]
     };
-    // Le pasamos como parámetro el nombre de la plantilla que queremos renderizar
-    res.render('index', viewModel);
+    sidebar(viewModel, function (viewModel) {
+      res.render('index', viewModel);
+    });
   }
 };

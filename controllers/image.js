@@ -1,3 +1,4 @@
+var sidebar = require('../helpers/sidebar');
 var fs = require('fs');
 var path = require('path');
 
@@ -32,16 +33,18 @@ module.exports = {
         }
       ]
     };
-    res.render('image', viewModel);
+    sidebar(viewModel, function (viewModel) {
+      res.render('index', viewModel);
+    });
   },
   create: function (req, res) {
     var saveImage = function () {
       var possible = 'abcdefghijklmnopqrstuvwxyz0123456789';
       var imgUrl = '';
       for (var i = 0; i < 6; i += 1) {
-        imgUrl += possible.charAt(Math.floor(Math.random() *
-          possible.length));
+        imgUrl += possible.charAt(Math.floor(Math.random() * possible.length));
       }
+      console.log(req.length);
       var tempPath = req.files.file.path;
       var ext = path.extname(req.files.file.name).toLowerCase();
       var targetPath = path.resolve('./public/upload/' + imgUrl + ext);
@@ -61,7 +64,7 @@ module.exports = {
     saveImage();
   },
   like: function (req, res) {
-    res.send('The image:like POST controller');
+    res.json({ likes: 1 });
   },
   comment: function (req, res) {
     res.send('The image:comment POST controller');

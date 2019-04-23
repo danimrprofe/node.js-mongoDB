@@ -26,10 +26,11 @@ module.exports = function (app) {
   // app.use(connect.logger('dev')); // Logea cada petición HTTP recibida
   // Ahora hay que logear utilizando un módulo llamado Morgan, tócatelos
   app.use(morgan('dev'));
-  app.use(multer({ dest: path.join(__dirname, 'public/upload/temp') }).any());
+  app.use(multer({ dest: path.join(__dirname, '../public/upload/temp') }).any());
+
   app.use(methodOverride());
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded());
+  //app.use(bodyParser.json());
+  //app.use(bodyParser.urlencoded());
   app.use(cookieParser('some-secret-value-here'));
   routes(app);
 
