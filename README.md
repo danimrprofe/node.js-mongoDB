@@ -1,37 +1,67 @@
-# node.js-mongoDB
+- [Proyecto node.js + mongoDB](#proyecto-nodejs--mongodb)
+  - [MongoDB](#mongodb)
+    - [Instalación de módulo de MongoDB para Node.js](#instalaci%C3%B3n-de-m%C3%B3dulo-de-mongodb-para-nodejs)
+  - [Node.js](#nodejs)
+    - [Dirigido a eventos](#dirigido-a-eventos)
+    - [Ejecución asíncrona](#ejecuci%C3%B3n-as%C3%ADncrona)
+    - [Sistema de módulos](#sistema-de-m%C3%B3dulos)
+  - [Creación del proyecto](#creaci%C3%B3n-del-proyecto)
+  - [Personalización de VSCode](#personalizaci%C3%B3n-de-vscode)
+    - [Linting de JS](#linting-de-js)
+  - [Dockerizando la aplicación](#dockerizando-la-aplicaci%C3%B3n)
 
+# Proyecto node.js + mongoDB
 
-## Funciones básicas de Node.js
+En este proyecto instalamos:
+
+- Una base de datos NoSQL como **mongoDB**
+- El módulo Node.js mongodb para podernos conectar y hacer consultas a la BD utilizando javascript. Node.js nos va a permitir ejecutar JavaScript en el lado del servidor.
+
+El proyecto está extraído de https://www.w3schools.com/nodejs/nodejs_mongodb.asp
+
+## MongoDB
+
+Vamos a utilizar como BD **MongoDB**, en este caso la versión 4.0.9. Tenemos varias opciones:
+
+- Instalarlo como servicio en la máquina (mi caso)
+- Dockerizarlo a partir de una imagen de **MongoDB** y levantarlo como contenedor
+- Desplegarlo como SAAS utilizando **MongoDB Atlas**
+
+### Instalación de módulo de MongoDB para Node.js
+
+Asumiento que tenemos instalado **Node.js** y el gestor de paquetes **NPM**, instalaremos el módulo de Mongo en la carpeta en la que lo vamos a  utilizar
+
+## Node.js
 
 ### Dirigido a eventos
 
 Prácticamente todo el código estará escrito de tal manera que:
-* Responde a un evento concreto
-* Dispara un evento
+
+- O bien responde a un evento concreto
+- O él mismo dispara un evento
 
 ### Ejecución asíncrona
 
 ### Sistema de módulos
 
-El código se agrupa en módulos para hacerlo lo más reutilizable posible. Node utiliza un sistema de módulos que
-nos permite organizar mejor nuestro código. Básicamente:
+El código se agrupa en módulos para hacerlo lo más reutilizable posible. Node utiliza un sistema de **módulos*- que nos permite organizar mejor nuestro código. Básicamente:
 
-* Escribimos un código que realiza una tarea en particular
-* Exportamos el código como un módulo que sirve para un propósito determinado.
+- Escribimos un código que realiza una tarea en particular
+- Exportamos el código como un módulo que sirve para un propósito determinado.
 
 De este modo, cuando queramos reutilizar el código en cualquier otro lugar del proyecto, únicamente debemos
 requerir (importar) dicho módulo.
 
 Utilizando este sistema:
 
-* Podemos reutilizar una funcionalidad de un modo en cualquier archivo
-* Los archivos de un módulo actúan como un espacio de nombres privado
+- Podemos reutilizar una funcionalidad de un modo en cualquier archivo
+- Los archivos de un módulo actúan como un espacio de nombres privado
 
 ## Creación del proyecto
 
 En primer lugar he inicializado NPM en la carpeta en la que tengo el trabajo:
 
-                npm init
+    npm init
 
 Me va a preguntar información sobre el package que estoy haciendo.
 
@@ -43,13 +73,19 @@ It only covers the most common items, and tries to guess sensible defaults.
 
 A rellenar y listo. Me generará un JSON: package.json
 
+## Personalización de VSCode
+
+### Linting de JS
+
 Instalo ESlint desde VSCode para que me mire el código. 0 warnings, así que palante.
 
-        npm install eslint
+    npm install eslint
 
 O bien:
 
-        npm i -D eslint eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-standard
+```console
+npm i -D eslint eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-standard
+```
 
 Por último he creado el archivo .eslintrc.js y lo he modificado para que contenga las siguientes reglas.
 
@@ -61,36 +97,27 @@ module.exports = {
     }
   };
 ```
+
 Se ha deshabilitado la recomendación de quitar puntoycomas porque era un coñazo.
 
-```
+```console
 C:\Users\dnick\Desktop\github\node.js-mongoDB>npm install eslint
 + eslint@5.16.0
 updated 1 package and audited 195 packages in 4.289s
 found 0 vulnerabilities
 ```
+
 A todo esto me falta instalar la extensión ESlint para VSCode.
-=======
-En este proyecto instalamos:
-* Una base de datos NoSQL como mongoDB
-* El módulo Node.js mongodb para podernos conectar y hacer consultas a la BD utilizando javascript. Node.js nos va a permitir ejecutar JavaScript en el lado del servidor.
 
-El proyecto está extraído de https://www.w3schools.com/nodejs/nodejs_mongodb.asp
-
-
-
-# Instalación Node.js
-Asumiento que tenemos instalado Node y el gestor de paquetes NPM, instalaremos el módulo de Mongo en la carpeta en la que lo vamos a  utilizar
-
-# Dockerizando la aplicación
+## Dockerizando la aplicación
 
 Aprovechando que VSCode me detecta el dockerfile y me sugiere la instalación de una extensión para docker,
 me doy cuenta que la extensión te autogenera los dockerfiles y dockercomposes a partir del código fuente, siempre que le digas:
-* El framework/tecnología utilizado, en mi caso Node.js
-* El puerto que va a exponer
 
-A partir de esto el tio te mira que imagen de docker para Node.js es la última, en este caso 
-una creada a partir de alpine y versión Nodejo 10.13. Veremos si es compatible
+- El framework/tecnología utilizado, en mi caso Node.js
+- El puerto que va a exponer
+
+A partir de esto el tio te mira que imagen de docker para Node.js es la última, en este caso una creada a partir de alpine y versión Nodejo 10.13. Veremos si es compatible
 
 Levantamos el contenedor y vemos que:
 
@@ -105,7 +132,7 @@ Levantamos el contenedor y vemos que:
 
 Al ataquer.
 
-```
+```docker
 C:\Users\dnick\Desktop\github\node.js-mongoDB>docker-compose up
 Creating network "nodejs-mongodb_default" with the default driver
 Building node.js-mongodb
@@ -159,7 +186,7 @@ Stopping nodejs-mongodb_node.js-mongodb_1 ... done
 E voilà, funciona. Servidor levantado y funcionando. Al principio tarda porque descarga la imagen base y crea la imagen final,
 pero las siguientes veces que levanto el contenedor está ready en segundos.
 
-```
+```js
 Recreating nodejs-mongodb_node.js-mongodb_1 ... done
 Attaching to nodejs-mongodb_node.js-mongodb_1
 node.js-mongodb_1  | Mon, 22 Apr 2019 15:27:13 GMT body-parser deprecated undefined extended: provide extended option at server/configure.js:32:22
@@ -179,15 +206,17 @@ node.js-mongodb_1  | GET /public/js/scripts.js 404 1.652 ms - 159
 node.js-mongodb_1  | GET /public/upload/sample1.jpg 404 1.097 ms - 164
 node.js-mongodb_1  | GET /public/js/scripts.js 404 0.390 ms - 159
 ```
+
 Lo curioso es que la imagen ocupa unos 100 MB, con código y módulos incluídos.
 
-```
+```docker
 C:\Users\dnick\Desktop\github\node.js-mongoDB>docker images
 REPOSITORY                      TAG                 IMAGE ID            CREATED             SIZE
 node.js-mongodb                 latest              fd975f1306ed        11 minutes ago      103MB
 ```
 
 Borrar todos los contenedores en windows:
+
 ```bat
 FOR /f "tokens=*" %i IN ('docker ps -a -q') DO docker rm %i
 ```
