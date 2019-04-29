@@ -21,7 +21,7 @@ El proyecto está extraído de https://www.w3schools.com/nodejs/nodejs_mongodb.a
 
 ## MongoDB
 
-Vamos a utilizar como BD **MongoDB**, en este caso la versión 4.0.9. Tenemos varias opciones:
+Vamos a utilizar como BD **MongoDB**, en este caso la versión 4.0.9. Tenemos varias opciones para trabajar con él:
 
 - Instalarlo como servicio en la máquina (mi caso)
 - Dockerizarlo a partir de una imagen de **MongoDB** y levantarlo como contenedor
@@ -29,11 +29,11 @@ Vamos a utilizar como BD **MongoDB**, en este caso la versión 4.0.9. Tenemos va
 
 ### Instalación de módulo de MongoDB para Node.js
 
-Asumiento que tenemos instalado **Node.js** y el gestor de paquetes **NPM**, instalaremos el módulo de Mongo en la carpeta en la que lo vamos a  utilizar
+Asumiento que tenemos instalado **Node.js** y el gestor de paquetes **NPM**, instalaremos el módulo de Mongo en la carpeta en la que lo vamos a  utilizar.
 
 ## Node.js
 
-### Dirigido a eventos
+### Dirigido a eventos (event-driven)
 
 Prácticamente todo el código estará escrito de tal manera que:
 
@@ -57,13 +57,13 @@ Utilizando este sistema:
 - Podemos reutilizar una funcionalidad de un modo en cualquier archivo
 - Los archivos de un módulo actúan como un espacio de nombres privado
 
-## Creación del proyecto
+## Creación del proyecto con Node.JS
 
 En primer lugar he inicializado NPM en la carpeta en la que tengo el trabajo:
 
     npm init
 
-Me va a preguntar información sobre el package que estoy haciendo.
+Me va a preguntar información sobre el package que estoy haciendo. 
 
 ```console
 C:\Carpeta>npm init
@@ -71,23 +71,45 @@ This utility will walk you through creating a package.json file.
 It only covers the most common items, and tries to guess sensible defaults.
 ```
 
-A rellenar y listo. Me generará un JSON: package.json
+A rellenar y listo. Me generará un JSON `package.json` que describirá nuestro proyecto.
 
 ## Personalización de VSCode
 
+Para el desarrollo he utilizado VSCode, con algunos añadidos que hacen un poco más sencillo el desarrollo, a base de extensiones, como por ejemplo:
+
+- Linteado de JS (eslint)
+- Docker (generación de dockerfiles)
+- Otros como extensiones de markdown para documentar.
+
 ### Linting de JS
+
+Esta extensión revisará el código js de nuestros archivos para ver si cumplen con una serie de reglas, algunas de estilo.
 
 Instalo ESlint desde VSCode para que me mire el código. 0 warnings, así que palante.
 
-    npm install eslint
+```console
+C:\xxx>npm install eslint
++ eslint@5.16.0
+updated 1 package and audited 195 packages in 4.289s
+found 0 vulnerabilities
+```
 
-O bien:
+También podemos realizar una instalación de algunos componentes extra que nos puedenhacer falta.
 
 ```console
 npm i -D eslint eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-standard
 ```
 
-Por último he creado el archivo .eslintrc.js y lo he modificado para que contenga las siguientes reglas.
+# Evitar ciertas normas
+
+Por último he creado el archivo .eslintrc.js y lo he modificado para que no aplique alguna regla.
+
+Eslint recomienda no terminar algunas líneas con ";". Comprobando información, es cierto que el código funciona sin problemas, pero he decidido deshabilitarlo debido a que:
+
+1. No todas las líneas pueden estar sin punto y coma. Algunas de ellas pueden fallar.
+2. A la hora de comprimir código JS podemos tener problemas, al asumir que dos o más líneas formen una sola, por lo que nos puede dar problemas.
+
+Por este motivo se ha deshabilitado la recomendación de quitar puntoycomas, y porque era un coñazo.
 
 ```js
 module.exports = {
@@ -98,26 +120,19 @@ module.exports = {
   };
 ```
 
-Se ha deshabilitado la recomendación de quitar puntoycomas porque era un coñazo.
-
-```console
-C:\Users\dnick\Desktop\github\node.js-mongoDB>npm install eslint
-+ eslint@5.16.0
-updated 1 package and audited 195 packages in 4.289s
-found 0 vulnerabilities
-```
-
-A todo esto me falta instalar la extensión ESlint para VSCode.
-
 ## Dockerizando la aplicación
 
 Aprovechando que VSCode me detecta el dockerfile y me sugiere la instalación de una extensión para docker,
-me doy cuenta que la extensión te autogenera los dockerfiles y dockercomposes a partir del código fuente, siempre que le digas:
+me doy cuenta que la extensión te autogenera los dockerfiles y dockercomposes a partir del código fuente.
+
+Para ello, con F1 nos permite ejecutar comandos, y buscamos el de generar dockerfiles. 
+
+Para ello nos va a pedir:
 
 - El framework/tecnología utilizado, en mi caso Node.js
 - El puerto que va a exponer
 
-A partir de esto el tio te mira que imagen de docker para Node.js es la última, en este caso una creada a partir de alpine y versión Nodejo 10.13. Veremos si es compatible
+A partir de esto el tio te mira que imagen de docker para Node.js es la última, en este caso una creada a partir de alpine y versión Node.JS 10.13. Veremos si es compatible.
 
 Levantamos el contenedor y vemos que:
 
@@ -207,7 +222,9 @@ node.js-mongodb_1  | GET /public/upload/sample1.jpg 404 1.097 ms - 164
 node.js-mongodb_1  | GET /public/js/scripts.js 404 0.390 ms - 159
 ```
 
-Lo curioso es que la imagen ocupa unos 100 MB, con código y módulos incluídos.
+# Imagen creada
+
+Lo curioso es que la imagen ocupa unos 100 MB, con código y módulos incluídos. Aún podríamos afinarla más, pero ya va bien así.
 
 ```docker
 C:\Users\dnick\Desktop\github\node.js-mongoDB>docker images
