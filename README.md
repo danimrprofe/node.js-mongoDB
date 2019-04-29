@@ -214,23 +214,3 @@ C:\Users\dnick\Desktop\github\node.js-mongoDB>docker images
 REPOSITORY                      TAG                 IMAGE ID            CREATED             SIZE
 node.js-mongodb                 latest              fd975f1306ed        11 minutes ago      103MB
 ```
-
-Borrar todos los contenedores en windows:
-
-```bat
-FOR /f "tokens=*" %i IN ('docker ps -a -q') DO docker rm %i
-```
-
-Un bat que te lo hace todo (maravilloso), borra contenedores e imágenes.
-
-```bat
-@echo off
-FOR /f "tokens=*" %%i IN ('docker ps -aq') DO docker rm %%i
-FOR /f "tokens=*" %%i IN ('docker images --format "{{.ID}}"') DO docker rmi %%i
-```
-
-y en powershell:
-
-```poweshell
-docker ps -aq | foreach {docker rm $_}
-```
