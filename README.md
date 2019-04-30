@@ -231,3 +231,13 @@ C:\Users\dnick\Desktop\github\node.js-mongoDB>docker images
 REPOSITORY                      TAG                 IMAGE ID            CREATED             SIZE
 node.js-mongodb                 latest              fd975f1306ed        11 minutes ago      103MB
 ```
+
+# Travis CI
+
+La idea es llevar un testing en travis. Para ello:
+
+* Conecto GitHub a Travis con los permisos necesarios
+* Activo el respositorio que quiero testear
+* Creo un YAML en la raíz del repo indicando el lenguaje del proyecto.
+
+Teóricamente, cada vez que pushee al repositorio se disparará el testeo.
