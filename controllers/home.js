@@ -1,5 +1,4 @@
 var sidebar = require('../helpers/sidebar');
-
 var ImageModel = require('../models').Image;
 
 module.exports = {

@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 // Creamos un esquema
 var Schema = mongoose.Schema;
 var path = require('path');
+
 var ImageSchema = new Schema({
   title: { type: String },
   description: { type: String },
@@ -12,6 +13,7 @@ var ImageSchema = new Schema({
   likes: { type: Number, 'default': 0 },
   timestamp: { type: Date, 'default': Date.now }
 });
+
 ImageSchema.virtual('uniqueId')
   .get(function () {
     return this.filename.replace(path.extname(this.filename), '');

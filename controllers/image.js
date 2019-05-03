@@ -1,40 +1,46 @@
-var sidebar = require('../helpers/sidebar');
+
 var fs = require('fs');
+var Models = require('../models');
 var path = require('path');
+var sidebar = require('../helpers/sidebar');
 
 module.exports = {
   index: function (req, res) {
     // vamos a renderizar la plantilla image
+
     var viewModel = {
-      image: {
-        uniqueId: 1,
-        title: 'Sample Image 1',
-        description: 'This is a sample.',
-        filename: 'sample1.jpg',
-        views: 0,
-        likes: 0,
-        timestamp: Date.now()
-      },
-      comments: [
-        {
-          image_id: 1,
-          email: 'test@testing.com',
-          name: 'Test Tester',
-          gravatar: 'http://lorempixel.com/75/75/animals/1',
-          comment: 'This is a test comment...',
-          timestamp: Date.now()
-        }, {
-          image_id: 1,
-          email: 'test@testing.com',
-          name: 'Test Tester',
-          gravatar: 'http://lorempixel.com/75/75/animals/2',
-          comment: 'Another followup comment!',
-          timestamp: Date.now()
-        }
-      ]
+      image: {},
+      comments: []
     };
-    sidebar(viewModel, function (viewModel) {
-      res.render('index', viewModel);
+
+    // Buscamos la imagen que queremos mostrar
+    // Tiene que encajar con el nombre que especifica la URL
+
+    Models.Image.findOne({
+      filename: { $regex: req.params.image_id }
+    },
+    function (err, image) {
+      if (err) { throw err; }
+      if (image) {
+        image.views = image.views + 1;
+        viewModel.image = image;
+        image.save();
+
+        // Buscamos los comentarios de esta imagen
+
+        Models.Comment.find({ image_id: image._id }, {}, { sort: {
+          'timestamp': 1 } },
+        function (err, comments) {
+          if (err) { throw err; }
+          viewModel.comments = comments;
+          sidebar(viewModel, function (viewModel) {
+            res.render('image', viewModel);
+          });
+        }
+        );
+      } else {
+        res.redirect('/');
+      }
     });
   },
   create: function (req, res) {
